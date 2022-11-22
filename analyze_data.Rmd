@@ -1,0 +1,35 @@
+---
+title: "QM717_project"
+author: "Todd Wallack"
+date: "11/20/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+# load libraries
+library(tidyverse)
+library(janitor)
+library(vtable)
+library(readxl)
+library(texreg)
+library(lubridate)
+library(zoo)
+library(knitr)
+
+
+comp_data <- read_csv('data/comp_data.csv') %>% clean_names()
+```
+
+## INTRO
+
+Print descriptive variables
+
+```{r descriptive,output=TRUE}
+
+st(comp_data)
+
+
+
+```
