@@ -38,6 +38,12 @@ gdp$quarter <- ymd(gdp$date)-1  # in order to match other quarters
 gdp <- gdp %>% select(quarter,us_gdp=gdp)
 comp_data <- left_join(comp_data,gdp)
 
+# import inflation data
+inflation <- read_csv('data/inflation.csv') %>% clean_names()
+inflation$quarter <- mdy(inflation$date)-1  # in order to match other quarters
+inflation <- inflation %>% select(quarter,cpi)
+comp_data <- left_join(comp_data,inflation)
+
 
 # import s&P 500
 spx <- read_csv('data/spx.csv') %>% clean_names()
@@ -75,5 +81,15 @@ comp_data <- left_join(comp_data,stock_prices)
 # filter for time after 2010
 comp_data <- comp_data %>% filter(year(quarter)>=2010)
 
+comp_data <- comp_data %>% arrange(comp_data$quarter)
+# import additional variables
+more_variables <- read_csv('data/3m_additional_variables.csv') %>% clean_names()
+names(more_variables)
+more_variables <- more_variables %>% select(quarter,net_income=net_income_attributable_to_3m,cost_of_sales,r_d)
+comp_data$quarter = as.character(comp_data$quarter)
+comp_data <- left_join(comp_data,more_variables,by='quarter')
+View(comp_data)
 # export data
 write_csv(comp_data, "data/comp_data.csv")
+
+View(comp_data)
