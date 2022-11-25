@@ -188,10 +188,178 @@ Regression models
 We start with a regression model using all our variables.
 The target or predicted variable is the company stock price. The other variables are explanatory variables.
 
+We found the model with all the variables was very useful in predicting the stock price. It accounts for 92% of the variation. But not all the variables appear to be significant.
+
 ```{r regression_overall,output=TRUE}
 
 
-model <- lm(value ~ fullbaths + sqft + bedrooms + age, data = homes) 
+model <- lm(stock_price_close ~ assets_millions + current_ratio + revenue_millions + net_income + cost_of_sales + r_d + cpi+ spx_close + us_gdp, data = comp_data) 
+
+screenreg(model)
+summary(model)
+
+
+```
+
+# Remove current ratio
+
+The current ratio looks like it is the least significant variable, based on the p and t values. 
+
+So let's try a new regression model without that variable.
+The new simpler model still lets us account for 92% of the variation.
+
+```{r regression_remove_current_ratio,output=TRUE}
+
+
+model <- lm(stock_price_close ~ assets_millions  + revenue_millions + net_income + cost_of_sales + r_d + cpi+ spx_close + us_gdp, data = comp_data) 
+
+screenreg(model)
+summary(model)
+
+
+```
+
+# Remove S&P 500
+
+The S&P 500 index is also not significant, based on the p and t values. 
+
+So let's try removing that variable.
+
+Our model still accounts for 92% of the variation
+
+
+```{r regression_minus_sp500,output=TRUE}
+
+
+model <- lm(stock_price_close ~ assets_millions +  revenue_millions +  cost_of_sales + r_d + cpi+ net_income + us_gdp, data = comp_data) 
+
+screenreg(model)
+summary(model)
+
+
+```
+
+
+# Remove net income
+
+Net income is also not significant, based on the p and t values. 
+
+So let's try removing that next.
+
+Our model still predicts 91% of the variation and is simpler.
+
+
+```{r regression_net_income,output=TRUE}
+
+
+model <- lm(stock_price_close ~ assets_millions +  revenue_millions +  cost_of_sales + r_d + cpi+  us_gdp, data = comp_data) 
+
+screenreg(model)
+summary(model)
+
+
+```
+
+# Remove assets (in millions)
+
+Assets are also not significant in our model, based on the p and t values. 
+
+So let's remove that one next.
+
+Our model still predicts 91% of the variation and is simpler.
+
+
+```{r regression_remove_assets,output=TRUE}
+
+
+model <- lm(stock_price_close ~   revenue_millions +  cost_of_sales + r_d + cpi+  us_gdp, data = comp_data) 
+
+screenreg(model)
+summary(model)
+
+
+```
+
+# Remove revenue (in millions)
+
+Revenue is the least significant of the remaining variables, based on the p and t values. 
+
+So let's remove that one next.
+
+Our model now predicts 89% of the variation, so it is slowly getting less accurate with fewer variables.
+
+
+```{r regression_remove_revenue,output=TRUE}
+
+
+model <- lm(stock_price_close ~    cost_of_sales + r_d + cpi+  us_gdp, data = comp_data) 
+
+screenreg(model)
+summary(model)
+
+
+```
+
+# Remove cost of goods sold
+
+cost of good sold is no longer significant, based on the p and t values. 
+
+So let's remove that one next.
+
+Our model now predicts 88% of the variation -- with only three variables left
+
+
+```{r regression_remove_cogs,output=TRUE}
+
+
+model <- lm(stock_price_close ~    r_d + cpi+  us_gdp, data = comp_data) 
+
+screenreg(model)
+summary(model)
+
+
+```
+
+# Remove research and development expense
+
+
+All the remaining variables are significant in our model.
+But the least significant is R&D expense, based on the p and t values. 
+
+So let's remove that one next.
+
+
+That leaves us with just CPI and us GDP. But our model can still explain 80 percent of the variation.
+
+
+```{r regression_remove_r_d,output=TRUE}
+
+
+model <- lm(stock_price_close ~    cpi+  us_gdp, data = comp_data) 
+
+screenreg(model)
+summary(model)
+
+
+```
+
+
+# Remove cpi
+
+Finally, the Consumer Price Index is the least significant of our remaining two variables. 
+
+So let's remove that one as well. That leaves us with only US GDP to predict 3M's stock price. But our model can still
+predict 65% of the variation in 3M's stock price.
+
+That suggests the US GDP is the biggest driver of 3M's stock price among the explanatory variables we examined.
+
+
+
+```{r regression_remove_cpi,output=TRUE}
+
+
+model <- lm(stock_price_close ~   us_gdp, data = comp_data) 
+
 screenreg(model)
 summary(model)
 
