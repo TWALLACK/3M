@@ -25,9 +25,11 @@ comp_data <- read_csv('data/comp_data.csv') %>% clean_names()
 
 
 
-## INTRO
+## Variables
 
-Print descriptive variables
+We collected a number of different variables for 3M and the broader economy from the beginning of 2010 through the first half of 2022. 
+
+Unfortunately, some data we hoped to use was not available for 3M. For instance, the company quarterly statements don't include employee counts, number of offices, or number of units produced. 3M *does* break down data by business segment. But those segments have been rearranged several times over the past decade. So the segment data from 2012 cannot be easily compared to the segment data in 2022.
 
 ```{r descriptive,output=TRUE}
 
@@ -167,5 +169,31 @@ hist(comp_data$stock_price_close)
 #create time series plot
 ggplot(comp_data,aes(x=quarter, y=stock_price_close)) +
        geom_bar(stat = "identity")
+
+```
+
+Correlation
+
+Here is a correlation matrix for the variables we used
+
+
+```{r correlation,output=TRUE}
+
+cor(comp_data[sapply(comp_data,is.numeric)])
+
+```
+
+Regression models
+
+We start with a regression model using all our variables.
+The target or predicted variable is the company stock price. The other variables are explanatory variables.
+
+```{r regression_overall,output=TRUE}
+
+
+model <- lm(value ~ fullbaths + sqft + bedrooms + age, data = homes) 
+screenreg(model)
+summary(model)
+
 
 ```
