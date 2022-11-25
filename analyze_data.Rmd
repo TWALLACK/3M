@@ -17,10 +17,13 @@ library(texreg)
 library(lubridate)
 library(zoo)
 library(knitr)
+library(ggplot2)
 
 
 comp_data <- read_csv('data/comp_data.csv') %>% clean_names()
 ```
+
+
 
 ## INTRO
 
@@ -31,5 +34,138 @@ Print descriptive variables
 st(comp_data)
 
 
+```
+
+
+assets (in millions)
+
+```{r assets,output=TRUE}
+
+hist(comp_data$assets_millions)
+
+#create time series plot
+ggplot(comp_data,aes(x=quarter, y=assets_millions)) +
+       geom_bar(stat = "identity")
+
+
+```
+
+current ratio 
+
+```{r current ratio,output=TRUE}
+
+hist(comp_data$current_ratio)
+
+#create time series plot
+ggplot(comp_data,aes(x=quarter, y=current_ratio)) +
+       geom_bar(stat = "identity")
+
+
+```
+
+revenue (millions)
+
+```{r revenue_millions,output=TRUE}
+
+hist(comp_data$revenue_millions)
+
+#create time series plot
+ggplot(comp_data,aes(x=quarter, y=revenue_millions)) +
+       geom_bar(stat = "identity")
+
+
+```
+
+
+
+
+
+
+cpi
+
+```{r cpi,output=TRUE}
+
+hist(comp_data$cpi)
+
+#create time series plot
+ggplot(comp_data, aes(x=quarter, y=cpi)) +
+       geom_bar(stat = "identity")
+
+
+```
+net income
+
+```{r net_income,output=TRUE}
+
+hist(comp_data$net_income)
+
+#create time series plot
+ggplot(comp_data, aes(x=quarter, y=net_income)) +
+       geom_bar(stat = "identity")
+
+
+```
+
+Cost of goods sold (COGS)
+
+```{r cost_of_sales,output=TRUE}
+
+hist(comp_data$cost_of_sales)
+
+#create time series plot
+ggplot(comp_data, aes(x=quarter, y=cost_of_sales)) +
+       geom_bar(stat = "identity")
+
+
+```
+Research and Development spending
+
+```{r r_d,output=TRUE}
+
+hist(comp_data$r_d)
+
+#create time series plot
+ggplot(comp_data, aes(x=quarter, y=r_d)) +
+       geom_bar(stat = "identity")
+
+
+```
+
+
+US GDP
+
+```{r US GDP,output=TRUE}
+
+hist(comp_data$us_gdp)
+
+#create time series plot
+ggplot(comp_data,aes(x=quarter, y=us_gdp)) +
+       geom_bar(stat = "identity")
+
+```
+
+Standard & Poor's 500 (SPX)
+
+```{r spx_close,output=TRUE}
+
+hist(comp_data$spx_close)
+
+#create time series plot
+ggplot(comp_data,aes(x=quarter, y=spx_close)) +
+       geom_bar(stat = "identity")
+
+```
+
+3M stock price (close)
+
+adjusted for dividends/splits)
+
+```{r stock_price_close,output=TRUE}
+
+hist(comp_data$stock_price_close)
+
+#create time series plot
+ggplot(comp_data,aes(x=quarter, y=stock_price_close)) +
+       geom_bar(stat = "identity")
 
 ```
