@@ -1,7 +1,7 @@
 ---
 title: "QM717_project"
-author: "Todd Wallack"
-date: "11/20/2022"
+author: "3M group"
+date: "11/25/2022"
 output: html_document
 ---
 
@@ -39,7 +39,7 @@ st(comp_data)
 ```
 
 
-assets (in millions)
+# assets (in millions)
 
 ```{r assets,output=TRUE}
 
@@ -52,7 +52,7 @@ ggplot(comp_data,aes(x=quarter, y=assets_millions)) +
 
 ```
 
-current ratio 
+# current ratio 
 
 ```{r current ratio,output=TRUE}
 
@@ -65,7 +65,7 @@ ggplot(comp_data,aes(x=quarter, y=current_ratio)) +
 
 ```
 
-revenue (millions)
+# revenue (millions)
 
 ```{r revenue_millions,output=TRUE}
 
@@ -82,20 +82,7 @@ ggplot(comp_data,aes(x=quarter, y=revenue_millions)) +
 
 
 
-
-cpi
-
-```{r cpi,output=TRUE}
-
-hist(comp_data$cpi)
-
-#create time series plot
-ggplot(comp_data, aes(x=quarter, y=cpi)) +
-       geom_bar(stat = "identity")
-
-
-```
-net income
+# net income
 
 ```{r net_income,output=TRUE}
 
@@ -108,7 +95,7 @@ ggplot(comp_data, aes(x=quarter, y=net_income)) +
 
 ```
 
-Cost of goods sold (COGS)
+# Cost of goods sold (COGS)
 
 ```{r cost_of_sales,output=TRUE}
 
@@ -120,7 +107,7 @@ ggplot(comp_data, aes(x=quarter, y=cost_of_sales)) +
 
 
 ```
-Research and Development spending
+# Research and Development spending
 
 ```{r r_d,output=TRUE}
 
@@ -134,7 +121,21 @@ ggplot(comp_data, aes(x=quarter, y=r_d)) +
 ```
 
 
-US GDP
+
+# cpi
+
+```{r cpi,output=TRUE}
+
+hist(comp_data$cpi)
+
+#create time series plot
+ggplot(comp_data, aes(x=quarter, y=cpi)) +
+       geom_bar(stat = "identity")
+
+
+```
+
+# US GDP
 
 ```{r US GDP,output=TRUE}
 
@@ -146,7 +147,7 @@ ggplot(comp_data,aes(x=quarter, y=us_gdp)) +
 
 ```
 
-Standard & Poor's 500 (SPX)
+# Standard & Poor's 500 (SPX)
 
 ```{r spx_close,output=TRUE}
 
@@ -158,7 +159,7 @@ ggplot(comp_data,aes(x=quarter, y=spx_close)) +
 
 ```
 
-3M stock price (close)
+# 3M stock price (close)
 
 adjusted for dividends/splits)
 
@@ -172,7 +173,7 @@ ggplot(comp_data,aes(x=quarter, y=stock_price_close)) +
 
 ```
 
-Correlation
+# Correlation
 
 Here is a correlation matrix for the variables we used
 
@@ -183,7 +184,7 @@ cor(comp_data[sapply(comp_data,is.numeric)])
 
 ```
 
-Regression models
+# Regression models
 
 We start with a regression model using all our variables.
 The target or predicted variable is the company stock price. The other variables are explanatory variables.
